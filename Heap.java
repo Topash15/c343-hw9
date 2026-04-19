@@ -38,11 +38,15 @@ public class Heap
 
     public static void HeapSort(int[] numbers)
     {
-        // your code goes here
-        /*you might need to call the following two functions 
-            percolateDown(int[], int, int);
-            swap(int[], int, int);
-        */
+        int arrayLength = 100;
+
+       for(int i=(arrayLength/2)-1; i>=0; i--){
+        percolateDown(numbers, i, arrayLength-1);
+       }
+       for(int j=(arrayLength-1); j>0; j--){
+        swap(numbers, 0, j);
+        percolateDown(numbers, 0, j-1);
+       }
     }
 
     public static void swap(int[] a, int i, int j)
@@ -59,7 +63,20 @@ public class Heap
 
     public static void percolateDown(int[] a, int i, int n)
     {
-	// Your code goes here
+        if(left_child(i) > n){
+            return;
+        } else {
+            int child = left_child(i);
+            if( child != n && a[child] < a[child+1]){
+                child++;
+            }
+            if(a[i] > a[child]){
+                return;
+            } else {
+                swap(a, i, child);
+                percolateDown(a, child, n);
+            }
+        }   
     }
 }
 
